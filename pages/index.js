@@ -14,7 +14,7 @@ export const getStaticProps = async () => {
     }
   });
 
-  const query = gql`
+  const videosQuery = gql`
   query {
     videos{
       createdAt,
@@ -34,24 +34,29 @@ export const getStaticProps = async () => {
   }
 `;
 
-  const data = await GraphQLClientLocal.request(query);
-  console.log(data);
+ const accountQuery = gql`
+    query {
+      account(where: {id:"ckv8m2e6wojmz0b734c2v9e2b"}) {
+        username
+        avatar {
+          url
+        }
+      }
+    }
+ `; 
+
+  const data = await GraphQLClientLocal.request(videosQuery);
+  const accountData = await GraphQLClientLocal.request(accountQuery);
 
   return {
     props: {
-      "videos": data.videos
+      "videos": data.videos,
+      "account": accountData.account
     }
   }
 }
 
-export const test = () => {
-  console.log("Here we are testing");
-}
-
-
-
-
-export default function Home({ videos }) {
+export default function Home({ videos, account }) {
 
   const randomVideo = (videos) => {
     return videos[Math.floor(Math.random() * videos.length)];
@@ -66,24 +71,25 @@ export default function Home({ videos }) {
   }
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="main-video">
-        <img
-          src={randomVideo(videos).thumbnail.url}
-          alt={randomVideo(videos).title}
-        />
+    <>
+      <Navbar account={account} /> 
+      <div className="app">
+        <div className="main-video">
+          <img
+            src={randomVideo(videos).thumbnail.url}
+            alt={randomVideo(videos).title}
+          />
+        </div>
+        <div className="videos-section">
+          <Section genre="Recommended for you" videos={userSeenVideos(videos)} />
+          <Section genre="Family" videos={filterVideos(videos, 'family')} />
+          <Section genre="Star Wars" videos={videos}/>
+          <Section genre="Marvel" videos={videos}/>
+          <Section genre="Pixar" videos={videos} />
+          <Section genre="National Geographic" videos={videos} />
+          <Section genre="Classic" videos={videos}/>
+        </div>
       </div>
-      <div className="videos-section">
-        <Section genre="Recommended for you" videos={userSeenVideos(videos)} />
-        <Section genre="Family" videos={filterVideos(videos, 'family')} />
-        <Section genre="Star Wars" videos={videos}/>
-        <Section genre="Marvel" videos={videos}/>
-        <Section genre="Pixar" videos={videos} />
-        <Section genre="National Geographic" videos={videos} />
-        <Section genre="Classic" videos={videos}/>
-      </div>
-
-    </div>
+    </>
   )
 }

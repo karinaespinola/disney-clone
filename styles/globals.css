@@ -75,3 +75,21 @@ a {
 .info-footer {
   height: 100vh;
 }
+
+.account-info {
+  display: flex;
+  height: 50%;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  align-items: center;
+}
+
+.avatar {
+  width: 50px;
+  height:50px;
+  border-radius: 50%;
+}
