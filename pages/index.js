@@ -58,7 +58,11 @@ export default function Home({ videos }) {
 
   const filterVideos = (videos, genre) => {
     return videos.filter((video) => video.tags.includes(genre));
-  } 
+  }
+
+  const userSeenVideos = (videos) => {
+    return videos.filter(video => video.seen === false || video.seen == null)
+  }
 
   return (
     <div className="app">
@@ -69,6 +73,7 @@ export default function Home({ videos }) {
         />
       </div>
       <div className="videos-section">
+        <Section genre="Recommended for you" videos={userSeenVideos(videos)} />
         <Section genre="Family" videos={filterVideos(videos, 'family')} />
         <Section genre="Star Wars" videos={videos}/>
         <Section genre="Marvel" videos={videos}/>
