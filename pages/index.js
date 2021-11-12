@@ -1,6 +1,8 @@
 import { gql, GraphQLClient } from 'graphql-request';
 import styles from '../styles/Home.module.css';
-import Image from 'next/image'
+import Image from 'next/image';
+import Section from '../components/Section';
+
 
 export const getStaticProps = async () => {
   const url = process.env.GRAPH_CMS_ENDPOINT;
@@ -57,12 +59,20 @@ export default function Home({ videos }) {
   return (
     <div className="app">
       <div className="main-video">
-      <Image
-        src={randomVideo(videos).thumbnail.url}
-        alt={randomVideo(videos).title}
-        layout="fill"
-      />
+        <img
+          src={randomVideo(videos).thumbnail.url}
+          alt={randomVideo(videos).title}
+        />
       </div>
+      <div className="videos-section">
+        <Section genre="Family" />
+        <Section genre="Star Wars" />
+        <Section genre="Marvel" />
+        <Section genre="Pixar" />
+        <Section genre="National Geographic" />
+        <Section genre="Classic" />
+      </div>
+
     </div>
   )
 }

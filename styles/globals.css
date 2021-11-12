@@ -4,7 +4,9 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+  background-color: #13151F;
+  color: #fff;
+  }
 
 a {
   color: inherit;
@@ -13,4 +15,16 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.app {
+  margin: 20px;
+}
+
+.main-video {
+  width: 100vw;
+  height: 30vh;
+  overflow: hidden;
+  margin-bottom: 50px;
+  position:relative;
 }
