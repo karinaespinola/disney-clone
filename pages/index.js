@@ -1,5 +1,6 @@
 import { gql, GraphQLClient } from 'graphql-request';
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css';
+import Image from 'next/image'
 
 export const getStaticProps = async () => {
   const url = process.env.GRAPH_CMS_ENDPOINT;
@@ -12,9 +13,7 @@ export const getStaticProps = async () => {
 
   const query = gql`
   query {
-    videos(where: {
-      slug: "mulan"
-    }) {
+    videos{
       createdAt,
       id,
       title,
@@ -49,8 +48,21 @@ export const test = () => {
 
 
 
-export default function Home() {
+export default function Home({ videos }) {
+
+  const randomVideo = (videos) => {
+    return videos[Math.floor(Math.random() * videos.length)];
+  }
+
   return (
-    <div>Hello</div>
+    <div className="app">
+      <div className="main-video">
+      <Image
+        src={randomVideo(videos).thumbnail.url}
+        alt={randomVideo(videos).title}
+        layout="fill"
+      />
+      </div>
+    </div>
   )
 }
