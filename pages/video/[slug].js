@@ -61,11 +61,15 @@ const Video = ({ video }) => {
 
     return (
         <div>
-            <img 
-            src={video[0].thumbnail.url} 
-            alt={video[0].title}
-            className="video-image"
-            />
+            {!watching && (
+                <img 
+                src={video[0].thumbnail.url} 
+                alt={video[0].title}
+                className="video-image"
+                />
+            )
+            }
+            {!watching && (
             <div className="info">
                 <p>{video[0].tags}</p>
                 <p>{video[0].description}</p>
@@ -79,12 +83,18 @@ const Video = ({ video }) => {
                     PLAY
                 </button>
             </div>
+            )
+        }
             {watching && (
                 <video width="100%" controls>
                     <source src={video[0].mp4.url} type="video/mp4"/>
                 </video>
             )
             }
+            <div 
+                className="info-footer"
+                onClick={() => watching ? setWatching(false) : null}
+            ></div>
         </div>
     )
 }

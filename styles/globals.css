@@ -67,6 +67,11 @@ a {
   margin-left: 50px;
   max-width: 50%;
 }
+
 .video-overlay {
   position: absolute;
+}
+
+.info-footer {
+  height: 100vh;
 }
