@@ -56,6 +56,10 @@ export default function Home({ videos }) {
     return videos[Math.floor(Math.random() * videos.length)];
   }
 
+  const filterVideos = (videos, genre) => {
+    return videos.filter((video) => video.tags.includes(genre));
+  } 
+
   return (
     <div className="app">
       <div className="main-video">
@@ -65,12 +69,12 @@ export default function Home({ videos }) {
         />
       </div>
       <div className="videos-section">
-        <Section genre="Family" />
-        <Section genre="Star Wars" />
-        <Section genre="Marvel" />
-        <Section genre="Pixar" />
-        <Section genre="National Geographic" />
-        <Section genre="Classic" />
+        <Section genre="Family" videos={filterVideos(videos, 'family')} />
+        <Section genre="Star Wars" videos={videos}/>
+        <Section genre="Marvel" videos={videos}/>
+        <Section genre="Pixar" videos={videos} />
+        <Section genre="National Geographic" videos={videos} />
+        <Section genre="Classic" videos={videos}/>
       </div>
 
     </div>
